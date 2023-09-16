@@ -4,4 +4,8 @@
 
 # OPENAI_API_KEY = getpass()
 
-apikey = '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'
+open_api_key = "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"
+
+pinecone_api_key = "d7ab9564-f6a2-472e-8a4c-a30a63d05950"
+
+pinecone_env = "gcp-starter"

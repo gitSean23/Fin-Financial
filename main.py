@@ -1,8 +1,8 @@
 # IF anything goes wrong and there is no explanation for it, it's prob the API KEY
 import streamlit as st
 import os
-from api import apikey
-os.environ["OPENAI_API_KEY"] = apikey
+from api import open_api_key
+os.environ["OPENAI_API_KEY"] = open_api_key
 import openai
 
 
@@ -27,3 +27,4 @@ if prompt := st.chat_input():
     msg = response.choices[0].message
     st.session_state.messages.append(msg)
     st.chat_message("assistant").write(msg.content)
+
