@@ -2,6 +2,7 @@
 from api import open_api_key
 from api import pinecone_api_key
 from api import pinecone_env
+import openai
 import os
 import getpass
 import langchain
@@ -20,7 +21,7 @@ os.environ["PINECONE_ENV"] = pinecone_env
 
 def create_qa_bot(query):
     # Load
-    loader = PyPDFLoader("pdf\Vanguard_guide_to_financial_wellness.pdf")
+    loader = PyPDFLoader("pdf/Vanguard_guide_to_financial_wellness.pdf")
     rawDocs = loader.load()
 
     # Splitting
