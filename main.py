@@ -5,6 +5,11 @@ from api import open_api_key
 os.environ["OPENAI_API_KEY"] = open_api_key
 import openai
 from chain import create_qa_bot
+from api import eleven_api_key
+os.environ["ELEVEN_API_KEY"] = eleven_api_key
+from elevenlabs import generate, play, set_api_key
+
+set_api_key(eleven_api_key)
 
 st.set_page_config(page_title="FinAI", page_icon="🐬")
 
@@ -35,6 +40,12 @@ if prompt := st.chat_input():
         st.session_state.messages.append(newMsg)
 
         st.chat_message("assistant").write(newMsg["content"])
+        
+    audio = generate(
+        text=response,
+        voice="Bella",
+        model="eleven_multilingual_v2",
+        )
 
-    
+    play(audio)
 
