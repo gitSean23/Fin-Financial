@@ -42,7 +42,6 @@ def create_qa_bot(query):
     chain = load_qa_chain(llm, chain_type="stuff")
     relevent_docs = docsearch.similarity_search(query)
     answer = chain.run(input_documents=relevent_docs, question=query)
-    print(answer)
     # Answer plaintext is returned.
     return answer
 
