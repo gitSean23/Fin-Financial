@@ -4,7 +4,6 @@ from api import pinecone_api_key
 from api import pinecone_env
 import openai
 import os
-import getpass
 import langchain
 import pinecone
 from langchain.chains.question_answering import load_qa_chain
@@ -18,38 +17,40 @@ os.environ["OPENAI_API_KEY"] = open_api_key
 os.environ["PINECONE_API_KEY"] = pinecone_api_key
 os.environ["PINECONE_ENV"] = pinecone_env
 
+# Commented out code is for ingesting data into vector database
 
 def create_qa_bot(query):
-    # Load
-    loader = PyPDFLoader("pdf/Vanguard_guide_to_financial_wellness.pdf")
-    rawDocs = loader.load()
+    ## Load
+    # loader = PyPDFLoader("pdf/Vanguard_guide_to_financial_wellness.pdf")
+    # rawDocs = loader.load()
 
-    # Splitting
-    text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size = 1000,
-            chunk_overlap = 200,
-    )
-    docs = text_splitter.split_documents(rawDocs)
+    ## Splitting
+    # text_splitter = RecursiveCharacterTextSplitter(
+    #         chunk_size = 1000,
+    #         chunk_overlap = 200,
+    # )
+    # docs = text_splitter.split_documents(rawDocs)
 
     # Bring in the embedding API
     embeddings = OpenAIEmbeddings()
 
     # Initialize the pinecone api and environment
+    # The OpenAI embedding model `text-embedding-ada-002 uses 1536 dimensions`
     pinecone.init(
         api_key=os.getenv("PINECONE_API_KEY"),  # find at app.pinecone.io
         environment=os.getenv("PINECONE_ENV"),  # next to api key in console
     )
 
-    # Create the index if needed.
-    # The OpenAI embedding model `text-embedding-ada-002 uses 1536 dimensions`
     index_name = "vanguard-guide"
-    if index_name not in pinecone.list_indexes():
-        # we create a new index
-        pinecone.create_index(
-        name=index_name,
-        metric='cosine',
-        dimension=1536  
-    )
+
+    ## Create the index if needed.
+    # if index_name not in pinecone.list_indexes():
+    #     # we create a new index
+    #     pinecone.create_index(
+    #     name=index_name,
+    #     metric='cosine',
+    #     dimension=1536  
+    # )
 
     # Find the doc from the index.
     docsearch = Pinecone.from_existing_index(index_name, embeddings)

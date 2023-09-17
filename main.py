@@ -8,9 +8,9 @@ from chain import create_qa_bot
 
 st.set_page_config(page_title="FinAI", page_icon="🐬")
 
-st.title("Fin")
+st.title("FinAI🐬")
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "Let's get yo money up! Start by asking me the basics."}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "Hello, I'm Fin! I'm here to help you take control of your finances, no matter your background. Let's work together to build a brighter financial future for you and your community. Ask me anything!"}]
 
 
 for msg in st.session_state.messages:
