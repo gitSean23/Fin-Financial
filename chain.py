@@ -21,15 +21,15 @@ os.environ["PINECONE_ENV"] = pinecone_env
 
 def create_qa_bot(query):
     # Load
-    loader = PyPDFLoader("pdf/Vanguard_guide_to_financial_wellness.pdf")
-    rawDocs = loader.load()
+    # loader = PyPDFLoader("pdf/Vanguard_guide_to_financial_wellness.pdf")
+    # rawDocs = loader.load()
 
-    # Splitting
-    text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size = 1000,
-            chunk_overlap = 200,
-    )
-    docs = text_splitter.split_documents(rawDocs)
+    # # Splitting
+    # text_splitter = RecursiveCharacterTextSplitter(
+    #         chunk_size = 1000,
+    #         chunk_overlap = 200,
+    # )
+    # docs = text_splitter.split_documents(rawDocs)
 
     # Bring in the embedding API
     embeddings = OpenAIEmbeddings()
@@ -43,13 +43,13 @@ def create_qa_bot(query):
     # Create the index if needed.
     # The OpenAI embedding model `text-embedding-ada-002 uses 1536 dimensions`
     index_name = "vanguard-guide"
-    if index_name not in pinecone.list_indexes():
-        # we create a new index
-        pinecone.create_index(
-        name=index_name,
-        metric='cosine',
-        dimension=1536  
-    )
+    # if index_name not in pinecone.list_indexes():
+    #     # we create a new index
+    #     pinecone.create_index(
+    #     name=index_name,
+    #     metric='cosine',
+    #     dimension=1536  
+    # )
 
     # Find the doc from the index.
     docsearch = Pinecone.from_existing_index(index_name, embeddings)
